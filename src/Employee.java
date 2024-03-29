@@ -4,53 +4,74 @@ public class Employee {
     private String employeeFirstName;
     private String employeeLastName;
     private String employeeMiddleName;
-    private static int departmentId;
-    private int employeeSalary;
+    private int department;
+    private float employeeSalary;
+    private int id;
+    private static int idCounter = 0;
 
-    public Employee(int departmentId, String employeeLastName, String employeeFirstName,
-                    String employeeMiddleName, int employeeSalary){
-        Employee.departmentId = departmentId;
+    public Employee(int department, String employeeLastName, String employeeFirstName,
+                    String employeeMiddleName, float employeeSalary) {
+        this.department = department;
         this.employeeLastName = employeeLastName;
         this.employeeFirstName = employeeFirstName;
         this.employeeMiddleName = employeeMiddleName;
         this.employeeSalary = employeeSalary;
+        id = ++idCounter;
     }
-// Геттеры
+
+    // Геттеры
     public String getEmployeeLastName() {
-        return this.employeeLastName;
+        return employeeLastName;
     }
+
     public String getEmployeeFirstName() {
         return this.employeeFirstName;
     }
+
     public String getEmployeeMiddleName() {
         return this.employeeMiddleName;
     }
+
     public int getDepartmentId() {
-        return departmentId;
+        return this.department;
     }
-    public int getEmployeeSalary() {
+
+    public float getEmployeeSalary() {
         return this.employeeSalary;
     }
-// Сеттеры
+
+    public int getId() {
+        return this.id;
+    }
+
+    // Сеттеры
     public void setEmployeeLastName() {
         this.employeeLastName = employeeLastName;
     }
+
     public void setEmployeeFirstName() {
-        this.employeeFirstName = employeeFirstName;
+        employeeFirstName = employeeFirstName;
     }
+
     public void setEmployeeMiddleName() {
         this.employeeMiddleName = employeeMiddleName;
     }
-    public void setEmployeeSalary() {
+
+    public void setDepartment(int department) {
+        this.department = department;
+    }
+
+    public void setEmployeeSalary(float salary) {
         this.employeeSalary = employeeSalary;
     }
 
-//String
-    public String toString(){
-    return departmentId + " " + employeeLastName + " " + employeeFirstName + " "
-            + employeeMiddleName + " " + employeeSalary;
+    //String
+    public String toString() {
+        return department + " " + employeeLastName + " " + employeeFirstName + " "
+                + employeeMiddleName + " " + employeeSalary;
     }
-// Equals и hascode
+
+    // Equals и hascode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

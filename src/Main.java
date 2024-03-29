@@ -1,52 +1,75 @@
 public class Main {
     public static void main(String[] args) {
-       // int id = Employee.getDepartmentId();
+        // int id = Employee.getDepartmentId();
         Employee[] employee = new Employee[10];
         employee[0] = new Employee(1, "Булгакова",
-                "София", "Леоновна", 32890);
-        employee[1] = new  Employee(2, "Родина",
-                "Александра", "Артемьевна", 31575);
-        employee[2] = new  Employee(3, "Зайцева",
-                "Елизавета", "Ивановна", 34099);
-        employee[3] = new  Employee(4, "Демин",
-                "Матвей", "Андреевич", 27829);
-        employee[4] = new  Employee(5, "Румянцев",
-                "Илья", "Никитич", 32547);
-        employee[5] = new  Employee(2, "Лопатин",
-                "Тимофей", "Викторович", 30776);
-        employee[6] = new  Employee(1, "Котова",
-                "Сафия", "Михайловна", 29791);
-        employee[7] = new  Employee(1, "Федосеев",
-                "Алексей", "Львович", 35112);
-        employee[8] = new  Employee(4, "Смирнов",
-                "Александр", "Александрович", 33001);
-        employee[9] = new  Employee(4, "Кузьмина",
-                "Мария", "Максимовна", 33553);
+                "София", "Леоновна", 32890.45f);
+        employee[1] = new Employee(2, "Родина",
+                "Александра", "Артемьевна", 31575.25f);
+        employee[2] = new Employee(3, "Зайцева",
+                "Елизавета", "Ивановна", 34099.09f);
+        employee[3] = new Employee(4, "Демин",
+                "Матвей", "Андреевич", 27829.36f);
+        employee[4] = new Employee(5, "Румянцев",
+                "Илья", "Никитич", 32547.41f);
+        employee[5] = new Employee(2, "Лопатин",
+                "Тимофей", "Викторович", 30776.91f);
+        employee[6] = new Employee(1, "Котова",
+                "Сафия", "Михайловна", 29791.22f);
+        employee[7] = new Employee(5, "Федосеев",
+                "Алексей", "Львович", 35112.69f);
+        employee[8] = new Employee(4, "Смирнов",
+                "Александр", "Александрович", 33001.15f);
+        employee[9] = new Employee(4, "Кузьмина",
+                "Мария", "Максимовна", 33553.82f);
 
         for (int id = 0; id < employee.length - 1; id++) {
             System.out.println(employee[id]);
+            // salaryCalculate(id, employee[id].getEmployeeSalary());
         }
+        System.out.println("Сумма затрат на зарплаты в месяц: " + salaryCalculate(employee));
+        System.out.println("Сотрудник с минимальной зарплатой: " + calculateMinSalary(employee));
+        System.out.println("Сотрудник с максимальной зарплатой: " + calculateMaxSalary(employee));
+        System.out.println("Средняя зарплата за месяц составляет: " + calculateAverageSalary(employee));
+    }
+
+    public static float salaryCalculate(Employee[] employee) {
+        float total = 0;
+        for (int i = 0; i < employee.length; i++) {
+            total += employee[i].getEmployeeSalary();
+        }
+        return total;
+    }
+
+    public static Employee calculateMaxSalary(Employee[] employee) {
+        float maxSalary = employee[0].getEmployeeSalary();
+        Employee salary = employee[0];
+        for (int i = 0; i < employee.length; i++) {
+            if (maxSalary < employee[i].getEmployeeSalary()) {
+                maxSalary = employee[i].getEmployeeSalary();
+                salary = employee[i];
+            }
+        }
+        return salary;
+    }
+
+    public static Employee calculateMinSalary(Employee[] employee) {
+        float minSalary = employee[0].getEmployeeSalary();
+        Employee salary = employee[0];
+        for (int i = 0; i < employee.length; i++) {
+            if (minSalary > employee[i].getEmployeeSalary()) {
+                minSalary = employee[i].getEmployeeSalary();
+                salary = employee[i];
+            }
+        }
+        return salary;
+    }
+
+    public static float calculateAverageSalary(Employee[] employee) {
+        float avgSum = 0;
+        for (int i = 0; i < employee.length; i++) {
+            avgSum++;
+        }
+        return salaryCalculate(employee) / avgSum;
     }
 }
-
-
-//Создать класс Employee, который содержит информацию о ФИО, отделе и зарплате
-// сотрудника. Отделы для простоты должны быть названы от 1 до 5.
-// Добавить статическую переменную-счетчик, которая будет отвечать за id.
-// Добавить в класс Employee поле id, которое проставляется из счетчика,
-// а затем счетчик увеличивает свое значение.
-// Скрыть прямой доступ к полям класса Employee и добавить возможность
-// получать значения полей (геттеры) и устанавливать значения полей отдела и
-// зарплаты (сеттеры). Реализовать в классе Employee контракты equals и hashCode.
-// По-умолчанию все поля должны передавать через конструктор (кроме id) и
-// заполняться в нем (включая id, который нужно получить из счетчика).
-// Создать внутри класса Main метод main и поле типа Employee[10], которое
-// будет выполнять роль "хранилища" для записей о сотрудниках.
-// Создать статические методы, которые будут взаимодействовать с массивом
-// из пункта 6 и возвращать результат:
-// Получить список всех сотрудников со всеми имеющимися по ним данными
-// (вывести в консоль значения всех полей (toString));
-// Посчитать сумму затрат на ЗП в месяц;
-// Найти сотрудника с минимальной ЗП;
-// Найти сотрудника с максимальной ЗП;
-// Подсчитать среднее значение зарплат (можно использовать для этого метод из пункта b);
