@@ -1,12 +1,12 @@
 import java.util.Objects;
 
 public class Employee {
-    private String employeeFirstName;
-    private String employeeLastName;
-    private String employeeMiddleName;
+    private final String employeeFirstName;
+    private final String employeeLastName;
+    private final String employeeMiddleName;
     private int department;
     private float employeeSalary;
-    private int id;
+    private final int id;
     private static int idCounter = 0;
 
     public Employee(int department, String employeeLastName, String employeeFirstName,
@@ -23,44 +23,26 @@ public class Employee {
     public String getEmployeeLastName() {
         return employeeLastName;
     }
-
     public String getEmployeeFirstName() {
         return this.employeeFirstName;
     }
-
     public String getEmployeeMiddleName() {
         return this.employeeMiddleName;
     }
-
     public int getDepartmentId() {
         return this.department;
     }
-
     public float getEmployeeSalary() {
         return this.employeeSalary;
     }
-
     public int getId() {
         return this.id;
     }
 
     // Сеттеры
-    public void setEmployeeLastName() {
-        this.employeeLastName = employeeLastName;
-    }
-
-    public void setEmployeeFirstName() {
-        employeeFirstName = employeeFirstName;
-    }
-
-    public void setEmployeeMiddleName() {
-        this.employeeMiddleName = employeeMiddleName;
-    }
-
     public void setDepartment(int department) {
         this.department = department;
     }
-
     public void setEmployeeSalary(float employeeSalary) {
         this.employeeSalary = employeeSalary;
     }
