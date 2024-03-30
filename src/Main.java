@@ -34,10 +34,12 @@ public class Main {
         for (int id = 0; id < employee.length; id++) {
             System.out.println(employee[id]);
         }
-        System.out.println("Сотрудник с минимальной зарплатой в отделе №: "
-                + calculateMinSalary(checkDepartment(employee, 3)));
-        System.out.println("Сотрудник с максимальной зарплатой в отделе №: "
-                + calculateMinSalary(checkDepartment(employee, 2)));
+        int departmentID = 3;
+        System.out.println("В отделе №: " + departmentID + " минимальная зарплата сотрудника: "
+                + calculateMinSalary(checkDepartment(employee, departmentID)));
+        departmentID = 4;
+        System.out.println("В отделе №: " + departmentID + " максимальная зарплата сотрудника: "
+                + calculateMinSalary(checkDepartment(employee, departmentID)));
 
     }
 
