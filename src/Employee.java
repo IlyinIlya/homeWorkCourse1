@@ -61,14 +61,14 @@ public class Employee {
         this.department = department;
     }
 
-    public void setEmployeeSalary(float salary) {
+    public void setEmployeeSalary(float employeeSalary) {
         this.employeeSalary = employeeSalary;
     }
 
     //String
     public String toString() {
-        return department + " " + employeeLastName + " " + employeeFirstName + " "
-                + employeeMiddleName + " " + employeeSalary;
+        return "ID: " + id + " | Отдел: " + department + " | ФИО: " + employeeLastName + " "
+                + employeeFirstName + " " + employeeMiddleName + " | Зарплата: " + employeeSalary;
     }
 
     // Equals и hascode

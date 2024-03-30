@@ -1,6 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        // int id = Employee.getDepartmentId();
         Employee[] employee = new Employee[10];
         employee[0] = new Employee(1, "Булгакова",
                 "София", "Леоновна", 32890.45f);
@@ -23,14 +22,23 @@ public class Main {
         employee[9] = new Employee(4, "Кузьмина",
                 "Мария", "Максимовна", 33553.82f);
 
-        for (int id = 0; id < employee.length - 1; id++) {
+        for (int id = 0; id < employee.length; id++) {
             System.out.println(employee[id]);
-            // salaryCalculate(id, employee[id].getEmployeeSalary());
         }
         System.out.println("Сумма затрат на зарплаты в месяц: " + salaryCalculate(employee));
         System.out.println("Сотрудник с минимальной зарплатой: " + calculateMinSalary(employee));
         System.out.println("Сотрудник с максимальной зарплатой: " + calculateMaxSalary(employee));
         System.out.println("Средняя зарплата за месяц составляет: " + calculateAverageSalary(employee));
+        printEmployeeFullName(employee);
+        System.out.println("Если процент повышения зарплаты: " + salaryIndexIncrease(employee, 7) + ", то");
+        for (int id = 0; id < employee.length; id++) {
+            System.out.println(employee[id]);
+        }
+        System.out.println("Сотрудник с минимальной зарплатой в отделе №: "
+                + calculateMinSalary(checkDepartment(employee, 3)));
+        System.out.println("Сотрудник с максимальной зарплатой в отделе №: "
+                + calculateMinSalary(checkDepartment(employee, 2)));
+
     }
 
     public static float salaryCalculate(Employee[] employee) {
@@ -72,4 +80,39 @@ public class Main {
         }
         return salaryCalculate(employee) / avgSum;
     }
+
+    public static void printEmployeeFullName(Employee[]  employee) {
+        for (int i = 0; i < employee.length; i++) {
+            System.out.println("Ф.И.О сотрудника:  " + employee[i].getEmployeeLastName() + " "
+                        + employee[i].getEmployeeFirstName() + " " + employee[i].getEmployeeMiddleName());
+
+        }
+    }
+
+    public static float salaryIndexIncrease(Employee[] employee, float index) {
+        for (int i = 0; i < employee.length; i++) {
+            employee[i].setEmployeeSalary(employee[i].getEmployeeSalary()
+                    + (employee[i].getEmployeeSalary() / 100 * index));
+        }
+        return index;
+    }
+    public static Employee[] checkDepartment(Employee[] employee, int departmentId) {
+        int id1 = 0;
+        int id2 = 0;
+        //int counter2 = 0;
+        for (int i = 0; i < employee.length; i++) {
+            if (employee[i].getDepartmentId() == departmentId) {
+                id1++;
+            }
+        }
+        Employee[] arrayOfDepartmentId = new Employee[id1];
+        for (int i = 0; i < employee.length; i++) {
+            if (employee[i].getDepartmentId() == departmentId) {
+                arrayOfDepartmentId[id2] = employee[i];
+                id2++;
+            }
+        }
+        return arrayOfDepartmentId;
+}
+
 }
