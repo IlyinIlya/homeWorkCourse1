@@ -1,5 +1,4 @@
 import java.util.Arrays;
-//private static Employee[] employee;
 public class Main {
     private static Employee[] employee;
     private final static int numberOfEmployees = 10;
@@ -27,8 +26,6 @@ public class Main {
         eBook.newEmployee(employee,3, "Кузьмина",
                 "Мария", "Максимовна", 33553.82f);
 
-
-       //Employee[] employee = new Employee[numberOfEmployees];
         // Вывод информации по всем сотрудникам
         eBook.printEmployeeInfo(employee);
         // Расчет общей суммы по ЗП, поиск минимальной/максимальной ЗП, расчет средней ЗП
