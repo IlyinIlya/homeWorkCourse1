@@ -23,18 +23,23 @@ public class Employee {
     public String getEmployeeLastName() {
         return employeeLastName;
     }
+
     public String getEmployeeFirstName() {
         return this.employeeFirstName;
     }
+
     public String getEmployeeMiddleName() {
         return this.employeeMiddleName;
     }
+
     public int getDepartmentId() {
         return this.department;
     }
+
     public float getEmployeeSalary() {
         return this.employeeSalary;
     }
+
     public int getId() {
         return this.id;
     }
@@ -43,14 +48,16 @@ public class Employee {
     public void setDepartment(int department) {
         this.department = department;
     }
+
     public void setEmployeeSalary(float employeeSalary) {
         this.employeeSalary = employeeSalary;
     }
 
     //String
     public String toString() {
-        return "ID: " + id + " | Отдел: " + department + " | ФИО: " + employeeLastName + " "
-                + employeeFirstName + " " + employeeMiddleName + " | Зарплата: " + employeeSalary;
+        return "ID: " + id + " | Отдел: " + department + " | ФИО: "
+                + employeeLastName + " " + employeeFirstName + " "
+                + employeeMiddleName + " | Зарплата: " + employeeSalary;
     }
 
     // Equals и hascode

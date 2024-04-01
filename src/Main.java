@@ -1,68 +1,67 @@
 import java.util.Arrays;
+
 public class Main {
-    private static Employee[] employee;
     private final static int numberOfEmployees = 10;
+
     public static void main(String[] args) {
-        employee = new Employee[numberOfEmployees];
-        EmployeeBook eBook = new EmployeeBook(numberOfEmployees);
-        eBook.newEmployee(employee,1, "Булгакова",
+        EmployeeBook eBook = new EmployeeBook();
+        eBook.addNewEmployee(1, "Булгакова",
                 "София", "Леоновна", 32890.45f);
-        eBook.newEmployee(employee,2, "Родина",
+        eBook.addNewEmployee(2, "Родина",
                 "Александра", "Артемьевна", 31575.25f);
-        eBook.newEmployee(employee,3, "Зайцева",
+        eBook.addNewEmployee(3, "Зайцева",
                 "Елизавета", "Ивановна", 34099.09f);
-        eBook.newEmployee(employee,4, "Демин",
+        eBook.addNewEmployee(4, "Демин",
                 "Матвей", "Андреевич", 27829.36f);
-        eBook.newEmployee(employee,5, "Румянцев",
+        eBook.addNewEmployee(5, "Румянцев",
                 "Илья", "Никитич", 32547.41f);
-        eBook.newEmployee(employee,2, "Лопатин",
+        eBook.addNewEmployee(2, "Лопатин",
                 "Тимофей", "Викторович", 30776.91f);
-        eBook.newEmployee(employee,1, "Котова",
+        eBook.addNewEmployee(1, "Котова",
                 "Сафия", "Михайловна", 29791.22f);
-        eBook.newEmployee(employee,5, "Федосеев",
+        eBook.addNewEmployee(5, "Федосеев",
                 "Алексей", "Львович", 35112.69f);
-        eBook.newEmployee(employee,4, "Смирнов",
+        eBook.addNewEmployee(4, "Смирнов",
                 "Александр", "Александрович", 33001.15f);
-        eBook.newEmployee(employee,3, "Кузьмина",
+        eBook.addNewEmployee(3, "Кузьмина",
                 "Мария", "Максимовна", 33553.82f);
 
         // Вывод информации по всем сотрудникам
-        eBook.printEmployeeInfo(employee);
+        eBook.printEmployeeInfo();
         // Расчет общей суммы по ЗП, поиск минимальной/максимальной ЗП, расчет средней ЗП
-        System.out.println("Сотрудник с минимальной зарплатой: " + eBook.calculateMinSalary(employee));
-        System.out.println("Сотрудник с максимальной зарплатой: " + eBook.calculateMaxSalary(employee));
-        System.out.println("Средняя зарплата за месяц составляет: " + eBook.calculateAverageSalary(employee));
+        System.out.println("Сотрудник с минимальной зарплатой: " + eBook.calculateMinSalary());
+        System.out.println("Сотрудник с максимальной зарплатой: " + eBook.calculateMaxSalary());
+        System.out.println("Средняя зарплата за месяц составляет: " + eBook.calculateAverageSalary());
         // Вывод информации: ФИО сотрудников
-        eBook.printEmployeeFullName(employee);
+        eBook.printEmployeeFullName();
         // Расчет индексирования ЗП
-        System.out.println("Если процент повышения зарплаты: " + eBook.salaryIndexIncrease(employee, 7) + "%, то:");
-        eBook.printEmployeeInfo(employee);
+        System.out.println("Если процент повышения зарплаты: " + eBook.salaryIndexIncrease(7) + "%, то:");
+        eBook.printEmployeeInfo();
         // Поиск минимальной/максимальной ЗП при задании фильтра по отделам
         int departmentID = 5;
         System.out.println("В отделе № " + departmentID + " минимальная зарплата сотрудника: "
-                + eBook.calculateMinSalary(eBook.checkDepartment(employee, departmentID)));
+                + eBook.calculateMinSalary(departmentID));
         System.out.println("В отделе № " + departmentID + " максимальная зарплата сотрудника: "
-                + eBook.calculateMaxSalary(eBook.checkDepartment(employee, departmentID)));
+                + eBook.calculateMaxSalary(departmentID));
         // Расчет суммы ЗП при задании фильтра по отделу
         System.out.println("Сумма затрат на зарплаты в отделе № " + departmentID + " составляет: "
-                + eBook.salaryCalculate(eBook.checkDepartment(employee, departmentID)));
+                + eBook.salaryCalculate(departmentID));
         // Расчет средней ЗП при задании фильтра по отделу
         System.out.println("Средняя зарплата в отделе № " + departmentID + " составляет: "
-                + eBook.calculateAverageSalary(eBook.checkDepartment(employee, departmentID)));
+                + eBook.calculateAverageSalary(departmentID));
         // Расчет индексирования ЗП при задании фильтра по отделу
-        System.out.println("Если процент повышения зарплаты: "
-                + eBook.salaryIndexIncrease(eBook.checkDepartment(employee, departmentID), 9) + "%, то:");
-        eBook.printEmployeeInfo(eBook.checkDepartment(employee, departmentID));
+        System.out.println("Если процент повышения зарплатыв отделе № " + departmentID + ": "
+                + eBook.salaryIndexIncrease(9, departmentID) + "%, то:");
+        eBook.printByDepartment(departmentID);
         // Вывод информации по всем сотрудником, исключая номер отдела
-        eBook.printEmployeeInfoNoDep(eBook.checkDepartment(employee, departmentID));
+        eBook.printEmployeeInfoNoDep();
         // Вывод информации по сотрудникам с ЗП меньше лимита
         float limitSalary = 33000.50f;
-        eBook.findLessLimitCurrentSalary(employee, limitSalary);
+        eBook.findLessLimitCurrentSalary(limitSalary);
         // Вывод информации по сотрудникам с ЗП меньше лимита
-        eBook.findMoreLimitCurrentSalary(employee, limitSalary);
+        eBook.findMoreLimitCurrentSalary(limitSalary);
 
     }
-
 
 
 }
