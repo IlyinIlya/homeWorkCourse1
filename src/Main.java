@@ -1,8 +1,4 @@
-import java.util.Arrays;
-
 public class Main {
-    private final static int numberOfEmployees = 10;
-
     public static void main(String[] args) {
         EmployeeBook eBook = new EmployeeBook();
         eBook.addNewEmployee(1, "Булгакова",
@@ -11,9 +7,9 @@ public class Main {
                 "Александра", "Артемьевна", 31575.25f);
         eBook.addNewEmployee(3, "Зайцева",
                 "Елизавета", "Ивановна", 34099.09f);
-        eBook.addNewEmployee(4, "Демин",
+        eBook.addNewEmployee(5, "Демин",
                 "Матвей", "Андреевич", 27829.36f);
-        eBook.addNewEmployee(5, "Румянцев",
+        eBook.addNewEmployee(4, "Румянцев",
                 "Илья", "Никитич", 32547.41f);
         eBook.addNewEmployee(2, "Лопатин",
                 "Тимофей", "Викторович", 30776.91f);
@@ -60,7 +56,14 @@ public class Main {
         eBook.findLessLimitCurrentSalary(limitSalary);
         // Вывод информации по сотрудникам с ЗП меньше лимита
         eBook.findMoreLimitCurrentSalary(limitSalary);
-
+        //Удалить сотрудника по ID
+        eBook.removeEmployee(2);
+        eBook.printEmployeeInfo();
+        //Добавить нового сотрудника
+        eBook.addNewEmployee(2, "Петров", "Иван", "Романович", 43222.13f);
+        eBook.printEmployeeInfo();
+        //Вывод информации о сотруднике по ID
+        eBook.printById(5);
     }
 
 

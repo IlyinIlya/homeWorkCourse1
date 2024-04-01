@@ -1,16 +1,26 @@
 public class EmployeeBook {
     private final static int numberOfEmployees = 10;
     private final Employee[] employee = new Employee[numberOfEmployees];
-    private int count;
-
-    public Employee[] getEmployee() {
-        return employee;
-    }
 
     public void addNewEmployee(int department, String lastname,
-                               String firstname, String middlename, float salary) {
-        employee[count] = new Employee(department, lastname, firstname, middlename, salary);
-        count++;
+                               String firstname, String middlename, float salary) throws RuntimeException {
+        for (int i = 0; i < employee.length; i++) {
+            if (employee[i] == null) {
+                employee[i] = new Employee(department, lastname, firstname, middlename, salary);
+                return;
+            }
+        }
+        throw new RuntimeException("Не возможно добавить пользователя. Ограничение по количеству");
+    }
+
+    public void removeEmployee(int id) throws RuntimeException {
+        for (int i = 0; i < employee.length; i++) {
+            if (employee[i] != null && employee[i].getId() == id) {
+                employee[i] = null;
+                return;
+            }
+        }
+        throw new RuntimeException("Не найден пользователь с ID: " + id);
     }
 
     public void printEmployeeInfo() {
@@ -22,6 +32,14 @@ public class EmployeeBook {
     public void printByDepartment(int departmentId) {
         for (Employee employees : employee) {
             if (employees != null && employees.getDepartmentId() == departmentId) {
+                System.out.println(employees);
+            }
+        }
+    }
+
+    public void printById(int id) {
+        for (Employee employees : employee) {
+            if (employees != null && employees.getId() == id) {
                 System.out.println(employees);
             }
         }
@@ -150,7 +168,7 @@ public class EmployeeBook {
     public void findLessLimitCurrentSalary(float limitSalary) {
         System.out.println("Ниже установленного порога:");
         for (Employee employees : employee) {
-            if (employees.getEmployeeSalary() < limitSalary) {
+            if (employees != null && employees.getEmployeeSalary() < limitSalary) {
                 System.out.println("ID: " + employees.getId() + " | ФИО: " + employees.getEmployeeLastName()
                         + " " + employees.getEmployeeFirstName() + " "
                         + employees.getEmployeeMiddleName() + " | Зарплата: " + employees.getEmployeeSalary());
@@ -161,7 +179,7 @@ public class EmployeeBook {
     public void findMoreLimitCurrentSalary(float limitSalary) {
         System.out.println("Выше установленного порога:");
         for (Employee employees : employee) {
-            if (employees.getEmployeeSalary() >= limitSalary) {
+            if (employees != null && employees.getEmployeeSalary() >= limitSalary) {
                 System.out.println("ID: " + employees.getId() + " | ФИО: " + employees.getEmployeeLastName()
                         + " " + employees.getEmployeeFirstName() + " "
                         + employees.getEmployeeMiddleName() + " | Зарплата: " + employees.getEmployeeSalary());
