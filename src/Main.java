@@ -1,26 +1,26 @@
 public class Main {
     public static void main(String[] args) {
         EmployeeBook eBook = new EmployeeBook();
-        eBook.addNewEmployee(1, "Булгакова",
-                "София", "Леоновна", 32890.45f);
-        eBook.addNewEmployee(2, "Родина",
-                "Александра", "Артемьевна", 31575.25f);
-        eBook.addNewEmployee(3, "Зайцева",
-                "Елизавета", "Ивановна", 34099.09f);
-        eBook.addNewEmployee(5, "Демин",
-                "Матвей", "Андреевич", 27829.36f);
-        eBook.addNewEmployee(4, "Румянцев",
-                "Илья", "Никитич", 32547.41f);
-        eBook.addNewEmployee(2, "Лопатин",
-                "Тимофей", "Викторович", 30776.91f);
-        eBook.addNewEmployee(1, "Котова",
-                "Сафия", "Михайловна", 29791.22f);
-        eBook.addNewEmployee(5, "Федосеев",
-                "Алексей", "Львович", 35112.69f);
-        eBook.addNewEmployee(4, "Смирнов",
-                "Александр", "Александрович", 33001.15f);
-        eBook.addNewEmployee(3, "Кузьмина",
-                "Мария", "Максимовна", 33553.82f);
+        eBook.addNewEmployee(new Employee(1, "Булгакова",
+                "София", "Леоновна", 32890.45f));
+        eBook.addNewEmployee(new Employee(2, "Родина",
+                "Александра", "Артемьевна", 31575.25f));
+        eBook.addNewEmployee(new Employee(3, "Зайцева",
+                "Елизавета", "Ивановна", 34099.09f));
+        eBook.addNewEmployee(new Employee(5, "Демин",
+                "Матвей", "Андреевич", 27829.36f));
+        eBook.addNewEmployee(new Employee(4, "Румянцев",
+                "Илья", "Никитич", 32547.41f));
+        eBook.addNewEmployee(new Employee(2, "Лопатин",
+                "Тимофей", "Викторович", 30776.91f));
+        eBook.addNewEmployee(new Employee(1, "Котова",
+                "Сафия", "Михайловна", 29791.22f));
+        eBook.addNewEmployee(new Employee(5, "Федосеев",
+                "Алексей", "Львович", 35112.69f));
+        eBook.addNewEmployee(new Employee(4, "Смирнов",
+                "Александр", "Александрович", 33001.15f));
+        eBook.addNewEmployee(new Employee(3, "Кузьмина",
+                "Мария", "Максимовна", 33553.82f));
 
         // Вывод информации по всем сотрудникам
         eBook.printEmployeeInfo();
@@ -46,7 +46,7 @@ public class Main {
         System.out.println("Средняя зарплата в отделе № " + departmentID + " составляет: "
                 + eBook.calculateAverageSalary(departmentID));
         // Расчет индексирования ЗП при задании фильтра по отделу
-        System.out.println("Если процент повышения зарплатыв отделе № " + departmentID + ": "
+        System.out.println("Если процент повышения зарплаты в отделе № " + departmentID + ": "
                 + eBook.salaryIndexIncrease(9, departmentID) + "%, то:");
         eBook.printByDepartment(departmentID);
         // Вывод информации по всем сотрудником, исключая номер отдела
@@ -60,11 +60,9 @@ public class Main {
         eBook.removeEmployee(2);
         eBook.printEmployeeInfo();
         //Добавить нового сотрудника
-        eBook.addNewEmployee(2, "Петров", "Иван", "Романович", 43222.13f);
+        eBook.addNewEmployee(new Employee(2, "Петров", "Иван", "Романович", 43222.13f));
         eBook.printEmployeeInfo();
         //Вывод информации о сотруднике по ID
         eBook.printById(5);
     }
-
-
 }

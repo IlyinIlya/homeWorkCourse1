@@ -1,22 +1,16 @@
-public class EmployeeBook {
-    private final static int numberOfEmployees = 10;
-    private final Employee[] employee = new Employee[numberOfEmployees];
+import java.util.*;
 
-    public void addNewEmployee(int department, String lastname,
-                               String firstname, String middlename, float salary) throws RuntimeException {
-        for (int i = 0; i < employee.length; i++) {
-            if (employee[i] == null) {
-                employee[i] = new Employee(department, lastname, firstname, middlename, salary);
-                return;
-            }
-        }
-        throw new RuntimeException("Не возможно добавить пользователя. Ограничение по количеству");
+public class EmployeeBook {
+    private final Map<String, Employee> employees = new LinkedHashMap<>();
+
+    public void addNewEmployee(Employee employee) {
+        employees.put(employee.getFullName(), employee);
     }
 
     public void removeEmployee(int id) throws RuntimeException {
-        for (int i = 0; i < employee.length; i++) {
-            if (employee[i] != null && employee[i].getId() == id) {
-                employee[i] = null;
+        for (var emp : employees.values()) {
+            if (!emp.getFullName().isEmpty() && emp.getId() == id) {
+                employees.remove(emp.getFullName());
                 return;
             }
         }
@@ -24,113 +18,85 @@ public class EmployeeBook {
     }
 
     public void printEmployeeInfo() {
-        for (Employee employees : employee) {
-            System.out.println(employees);
-        }
+        employees.forEach((k, v) -> System.out.println(v));
     }
 
     public void printByDepartment(int departmentId) {
-        for (Employee employees : employee) {
-            if (employees != null && employees.getDepartmentId() == departmentId) {
-                System.out.println(employees);
+        for (var emp : employees.values()) {
+            if (emp.getDepartmentId() == departmentId) {
+                System.out.println(emp);
             }
         }
     }
 
     public void printById(int id) {
-        for (Employee employees : employee) {
-            if (employees != null && employees.getId() == id) {
-                System.out.println(employees);
+        for (var emp : employees.values()) {
+            if (emp.getId() == id) {
+                System.out.println(emp);
             }
         }
     }
 
+    //
     public void printEmployeeInfoNoDep() {
-        for (Employee employees : employee) {
-            System.out.println("ID: " + employees.getId() + " | ФИО: " + employees.getEmployeeLastName()
-                    + " " + employees.getEmployeeFirstName() + " "
-                    + employees.getEmployeeMiddleName() + " | Зарплата: " + employees.getEmployeeSalary());
+        for (var emp : employees.values()) {
+            System.out.println("ID: " + emp.getId() + " | ФИО: " + emp.getEmployeeLastName()
+                    + " " + emp.getEmployeeFirstName() + " "
+                    + emp.getEmployeeMiddleName() + " | Зарплата: " + emp.getEmployeeSalary());
         }
     }
 
+    //
     public float salaryCalculate() {
         float total = 0;
-        for (Employee employees : employee) {
-            if (employees != null) {
-                total += employees.getEmployeeSalary();
-            }
+        for (var emp : employees.values()) {
+            total += emp.getEmployeeSalary();
         }
         return total;
     }
 
     public float salaryCalculate(int departmentId) {
         float total = 0;
-        for (Employee employees : employee) {
-            if (employees != null && employees.getDepartmentId() == departmentId) {
-                total += employees.getEmployeeSalary();
+        for (var emp : employees.values()) {
+            if (emp.getDepartmentId() == departmentId) {
+                total += emp.getEmployeeSalary();
             }
         }
         return total;
     }
 
     public Employee calculateMaxSalary() {
-        Employee maxSalary = employee[0];
-        for (Employee employees : employee) {
-            if ((employees != null && maxSalary.getEmployeeSalary() < employees.getEmployeeSalary())) {
-                maxSalary = employees;
-            }
-        }
-        return maxSalary;
+        var staff = employees.values();
+        return Collections.max(staff, Comparator.comparingDouble(Employee::getEmployeeSalary));
     }
 
     public Employee calculateMaxSalary(int departmentId) {
-        Employee maxSalary = employee[0];
-        for (Employee employees : employee) {
-            if (employees != null && employees.getDepartmentId() == departmentId
-                    && (maxSalary.getEmployeeSalary() < employees.getEmployeeSalary())) {
-                maxSalary = employees;
-            }
-        }
-        return maxSalary;
+        var staff = new ArrayList<>(employees.values());
+        staff.removeIf(emp -> emp.getDepartmentId() != departmentId);
+        return Collections.max(staff, Comparator.comparingDouble(Employee::getEmployeeSalary));
     }
 
     public Employee calculateMinSalary() {
-        Employee minSalary = employee[0];
-        for (Employee employees : employee) {
-            if (employees != null && (minSalary.getEmployeeSalary() > employees.getEmployeeSalary())) {
-                minSalary = employees;
-            }
-        }
-        return minSalary;
+        var staff = employees.values();
+        return Collections.min(staff, Comparator.comparingDouble(Employee::getEmployeeSalary));
     }
 
     public Employee calculateMinSalary(int departmentId) {
-        Employee minSalary = employee[0];
-        for (Employee employees : employee) {
-            if (employees != null && employees.getDepartmentId() == departmentId &&
-                    (minSalary.getEmployeeSalary() > employees.getEmployeeSalary())) {
-                minSalary = employees;
-            }
-        }
-        return minSalary;
+        var staff = new ArrayList<>(employees.values());
+        staff.removeIf(emp -> emp.getDepartmentId() != departmentId);
+        return Collections.min(staff, Comparator.comparingDouble(Employee::getEmployeeSalary));
     }
 
     public float calculateAverageSalary() {
-        int avgSum = 0;
-        for (Employee employees : employee) {
-            if (employees != null) {
-                avgSum++;
-            }
-        }
-        return salaryCalculate() / avgSum;
+        return salaryCalculate() / employees.size();
     }
 
     public float calculateAverageSalary(int departmentId) {
         float avgSum = 0;
         int count = 0;
-        for (Employee employees : employee) {
-            if (employees != null && employees.getDepartmentId() == departmentId) {
-                avgSum += employees.getEmployeeSalary();
+        for (var emp : employees.values()) {
+            if (emp.getDepartmentId() == departmentId) {
+                avgSum += emp.getEmployeeSalary();
                 count++;
             }
         }
@@ -138,28 +104,25 @@ public class EmployeeBook {
     }
 
     public void printEmployeeFullName() {
-        for (Employee employees : employee) {
-            System.out.println("Ф.И.О сотрудника: " + employees.getEmployeeLastName() + " "
-                    + employees.getEmployeeFirstName() + " " + employees.getEmployeeMiddleName());
+        for (var emp : employees.values()) {
+            System.out.println("Ф.И.О сотрудника: " + emp.getFullName());
 
         }
     }
 
     public float salaryIndexIncrease(float index) {
-        for (Employee employees : employee) {
-            if (employees != null) {
-                employees.setEmployeeSalary(employees.getEmployeeSalary()
-                        + (employees.getEmployeeSalary() / 100 * index));
-            }
+        for (var emp : employees.values()) {
+            emp.setEmployeeSalary(emp.getEmployeeSalary()
+                    + (emp.getEmployeeSalary() / 100 * index));
         }
         return index;
     }
 
     public float salaryIndexIncrease(float index, int departmentId) {
-        for (Employee employees : employee) {
-            if (employees != null && employees.getDepartmentId() == departmentId) {
-                employees.setEmployeeSalary(employees.getEmployeeSalary()
-                        + (employees.getEmployeeSalary() / 100 * index));
+        for (var emp : employees.values()) {
+            if (emp.getDepartmentId() == departmentId) {
+                emp.setEmployeeSalary(emp.getEmployeeSalary()
+                        + (emp.getEmployeeSalary() / 100 * index));
             }
         }
         return index;
@@ -167,22 +130,22 @@ public class EmployeeBook {
 
     public void findLessLimitCurrentSalary(float limitSalary) {
         System.out.println("Ниже установленного порога:");
-        for (Employee employees : employee) {
-            if (employees != null && employees.getEmployeeSalary() < limitSalary) {
-                System.out.println("ID: " + employees.getId() + " | ФИО: " + employees.getEmployeeLastName()
-                        + " " + employees.getEmployeeFirstName() + " "
-                        + employees.getEmployeeMiddleName() + " | Зарплата: " + employees.getEmployeeSalary());
+        for (var emp : employees.values()) {
+            if (emp.getEmployeeSalary() < limitSalary) {
+                System.out.println("ID: " + emp.getId() + " | ФИО: " + emp.getEmployeeLastName()
+                        + " " + emp.getEmployeeFirstName() + " "
+                        + emp.getEmployeeMiddleName() + " | Зарплата: " + emp.getEmployeeSalary());
             }
         }
     }
 
     public void findMoreLimitCurrentSalary(float limitSalary) {
         System.out.println("Выше установленного порога:");
-        for (Employee employees : employee) {
-            if (employees != null && employees.getEmployeeSalary() >= limitSalary) {
-                System.out.println("ID: " + employees.getId() + " | ФИО: " + employees.getEmployeeLastName()
-                        + " " + employees.getEmployeeFirstName() + " "
-                        + employees.getEmployeeMiddleName() + " | Зарплата: " + employees.getEmployeeSalary());
+        for (var emp : employees.values()) {
+            if (emp.getEmployeeSalary() >= limitSalary) {
+                System.out.println("ID: " + emp.getId() + " | ФИО: " + emp.getEmployeeLastName()
+                        + " " + emp.getEmployeeFirstName() + " "
+                        + emp.getEmployeeMiddleName() + " | Зарплата: " + emp.getEmployeeSalary());
             }
         }
     }
