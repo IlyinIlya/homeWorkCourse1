@@ -31,6 +31,9 @@ public class Employee {
     public String getEmployeeMiddleName() {
         return this.employeeMiddleName;
     }
+    public String getFullName(){
+        return employeeLastName + " " + employeeFirstName + " " + employeeMiddleName;
+    }
 
     public int getDepartmentId() {
         return this.department;
