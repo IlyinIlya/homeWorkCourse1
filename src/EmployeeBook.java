@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class EmployeeBook {
-    private Map<String, Employee> employees = new LinkedHashMap<>();
+    private final Map<String, Employee> employees = new LinkedHashMap<>();
 
     public void addNewEmployee(Employee employee) {
         employees.put(employee.getFullName(), employee);
