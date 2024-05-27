@@ -27,42 +27,42 @@ public class Main {
         // Расчет общей суммы по ЗП, поиск минимальной/максимальной ЗП, расчет средней ЗП
         System.out.println("Сотрудник с минимальной зарплатой: " + eBook.calculateMinSalary());
         System.out.println("Сотрудник с максимальной зарплатой: " + eBook.calculateMaxSalary());
-        //System.out.println("Средняя зарплата за месяц составляет: " + eBook.calculateAverageSalary());
+        System.out.println("Средняя зарплата за месяц составляет: " + eBook.calculateAverageSalary());
         // Вывод информации: ФИО сотрудников
-        //eBook.printEmployeeFullName();
+        eBook.printEmployeeFullName();
         // Расчет индексирования ЗП
-       // System.out.println("Если процент повышения зарплаты: " + eBook.salaryIndexIncrease(7) + "%, то:");
-        //eBook.printEmployeeInfo();
+        System.out.println("Если процент повышения зарплаты: " + eBook.salaryIndexIncrease(7) + "%, то:");
+        eBook.printEmployeeInfo();
         // Поиск минимальной/максимальной ЗП при задании фильтра по отделам
         int departmentID = 5;
-       // System.out.println("В отделе № " + departmentID + " минимальная зарплата сотрудника: "
-       //         + eBook.calculateMinSalary(departmentID));
-      //  System.out.println("В отделе № " + departmentID + " максимальная зарплата сотрудника: "
-      //          + eBook.calculateMaxSalary(departmentID));
+        System.out.println("В отделе № " + departmentID + " минимальная зарплата сотрудника: "
+                + eBook.calculateMinSalary(departmentID));
+        System.out.println("В отделе № " + departmentID + " максимальная зарплата сотрудника: "
+                + eBook.calculateMaxSalary(departmentID));
         // Расчет суммы ЗП при задании фильтра по отделу
-      //  System.out.println("Сумма затрат на зарплаты в отделе № " + departmentID + " составляет: "
-       //         + eBook.salaryCalculate(departmentID));
+        System.out.println("Сумма затрат на зарплаты в отделе № " + departmentID + " составляет: "
+                + eBook.salaryCalculate(departmentID));
         // Расчет средней ЗП при задании фильтра по отделу
-       // System.out.println("Средняя зарплата в отделе № " + departmentID + " составляет: "
-      //          + eBook.calculateAverageSalary(departmentID));
+        System.out.println("Средняя зарплата в отделе № " + departmentID + " составляет: "
+                + eBook.calculateAverageSalary(departmentID));
         // Расчет индексирования ЗП при задании фильтра по отделу
-      //  System.out.println("Если процент повышения зарплатыв отделе № " + departmentID + ": "
-      //          + eBook.salaryIndexIncrease(9, departmentID) + "%, то:");
-       // eBook.printByDepartment(departmentID);
+        System.out.println("Если процент повышения зарплаты в отделе № " + departmentID + ": "
+                + eBook.salaryIndexIncrease(9, departmentID) + "%, то:");
+        eBook.printByDepartment(departmentID);
         // Вывод информации по всем сотрудником, исключая номер отдела
-     //   eBook.printEmployeeInfoNoDep();
+        eBook.printEmployeeInfoNoDep();
         // Вывод информации по сотрудникам с ЗП меньше лимита
         float limitSalary = 33000.50f;
-      //  eBook.findLessLimitCurrentSalary(limitSalary);
+        eBook.findLessLimitCurrentSalary(limitSalary);
         // Вывод информации по сотрудникам с ЗП меньше лимита
-      //  eBook.findMoreLimitCurrentSalary(limitSalary);
+        eBook.findMoreLimitCurrentSalary(limitSalary);
         //Удалить сотрудника по ID
-      //  eBook.removeEmployee(2);
-       // eBook.printEmployeeInfo();
+        eBook.removeEmployee(2);
+        eBook.printEmployeeInfo();
         //Добавить нового сотрудника
-    //    eBook.addNewEmployee(3, "Петров", "Иван", "Романович", 43222.13f);
-     //   eBook.printEmployeeInfo();
+        eBook.addNewEmployee(new Employee(2, "Петров", "Иван", "Романович", 43222.13f));
+        eBook.printEmployeeInfo();
         //Вывод информации о сотруднике по ID
-    //    eBook.printById(5);
+        eBook.printById(5);
     }
 }

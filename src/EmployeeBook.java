@@ -1,186 +1,152 @@
 import java.util.*;
 
 public class EmployeeBook {
-    private final static int numberOfEmployees = 10;
-    private Map<String, Employee> employees = new HashMap<>();
+    private Map<String, Employee> employees = new LinkedHashMap<>();
 
-    public void addNewEmployee(Employee employee) throws RuntimeException {
+    public void addNewEmployee(Employee employee) {
         employees.put(employee.getFullName(), employee);
     }
-//        for (int i = 0; i < employee.length; i++) {
-//            if (employee[i] == null) {
-//                employee[i] = new Employee(department, lastname, firstname, middlename, salary);
-//                return;
-//            }
-//        }
-//        throw new RuntimeException("Не возможно добавить пользователя. Ограничение по количеству");
-//    }
 
-//    public void removeEmployee(int id) throws RuntimeException {
-//        for (int i = 0; i < employee.length; i++) {
-//            if (employee[i] != null && employee[i].getId() == id) {
-//                employee[i] = null;
-//                return;
-//            }
-//        }
-//        throw new RuntimeException("Не найден пользователь с ID: " + id);
-//    }
-//
+    public void removeEmployee(int id) throws RuntimeException {
+        for (var emp : employees.values()) {
+            if (!emp.getFullName().isEmpty() && emp.getId() == id) {
+                employees.remove(emp.getFullName());
+                return;
+            }
+        }
+        throw new RuntimeException("Не найден пользователь с ID: " + id);
+    }
+
     public void printEmployeeInfo() {
         employees.forEach((k, v) -> System.out.println(v));
     }
-//
-//    public void printByDepartment(int departmentId) {
-//        for (Employee employees : employee) {
-//            if (employees != null && employees.getDepartmentId() == departmentId) {
-//                System.out.println(employees);
-//            }
-//        }
-//    }
-//
-//    public void printById(int id) {
-//        for (Employee employees : employee) {
-//            if (employees != null && employees.getId() == id) {
-//                System.out.println(employees);
-//            }
-//        }
-//    }
-//
-//    public void printEmployeeInfoNoDep() {
-//        for (Employee employees : employee) {
-//            System.out.println("ID: " + employees.getId() + " | ФИО: " + employees.getEmployeeLastName()
-//                    + " " + employees.getEmployeeFirstName() + " "
-//                    + employees.getEmployeeMiddleName() + " | Зарплата: " + employees.getEmployeeSalary());
-//        }
-//    }
-//
-//    public float salaryCalculate() {
-//        float total = 0;
-//        for (Employee employees : employee) {
-//            if (employees != null) {
-//                total += employees.getEmployeeSalary();
-//            }
-//        }
-//        return total;
-//    }
-//
-//    public float salaryCalculate(int departmentId) {
-//        float total = 0;
-//        for (Employee employees : employee) {
-//            if (employees != null && employees.getDepartmentId() == departmentId) {
-//                total += employees.getEmployeeSalary();
-//            }
-//        }
-//        return total;
-//    }
-//
+
+    public void printByDepartment(int departmentId) {
+        for (var emp : employees.values()) {
+            if (emp.getDepartmentId() == departmentId) {
+                System.out.println(emp);
+            }
+        }
+    }
+
+    public void printById(int id) {
+        for (var emp : employees.values()) {
+            if (emp.getId() == id) {
+                System.out.println(emp);
+            }
+        }
+    }
+
+    //
+    public void printEmployeeInfoNoDep() {
+        for (var emp : employees.values()) {
+            System.out.println("ID: " + emp.getId() + " | ФИО: " + emp.getEmployeeLastName()
+                    + " " + emp.getEmployeeFirstName() + " "
+                    + emp.getEmployeeMiddleName() + " | Зарплата: " + emp.getEmployeeSalary());
+        }
+    }
+
+    //
+    public float salaryCalculate() {
+        float total = 0;
+        for (var emp : employees.values()) {
+            total += emp.getEmployeeSalary();
+        }
+        return total;
+    }
+
+    public float salaryCalculate(int departmentId) {
+        float total = 0;
+        for (var emp : employees.values()) {
+            if (emp.getDepartmentId() == departmentId) {
+                total += emp.getEmployeeSalary();
+            }
+        }
+        return total;
+    }
+
     public Employee calculateMaxSalary() {
         var staff = employees.values();
         return Collections.max(staff, Comparator.comparingDouble(Employee::getEmployeeSalary));
     }
-//
-//    public double calculateMaxSalary(int departmentId) {
-//        //Employee maxSalary = employee[0];
-//        double maxSalary = 0.0;
-//        for (var emp : employee.values()){
-//            if(emp.getDepartmentId() == departmentId) {
-//                maxSalary +=emp.getEmployeeSalary();
-//            }
-//        }
-//     //   for (Employee employees : employee) {
-//     //       if (employees != null && employees.getDepartmentId() == departmentId
-//     //               && (maxSalary.getEmployeeSalary() < employees.getEmployeeSalary())) {
-//     //           maxSalary = employees;
-//     //       }
-//     //   }
-//        return maxSalary;
-//    }
-//
+
+    public Employee calculateMaxSalary(int departmentId) {
+        var staff = new ArrayList<>(employees.values());
+        staff.removeIf(emp -> emp.getDepartmentId() != departmentId);
+        return Collections.max(staff, Comparator.comparingDouble(Employee::getEmployeeSalary));
+    }
+
     public Employee calculateMinSalary() {
         var staff = employees.values();
         return Collections.min(staff, Comparator.comparingDouble(Employee::getEmployeeSalary));
     }
-//
-//    public Employee calculateMinSalary(int departmentId) {
-//        Employee minSalary = employee[0];
-//        for (Employee employees : employee) {
-//            if (employees != null && employees.getDepartmentId() == departmentId &&
-//                    (minSalary.getEmployeeSalary() > employees.getEmployeeSalary())) {
-//                minSalary = employees;
-//            }
-//        }
-//        return minSalary;
-//    }
-//
-//    public float calculateAverageSalary() {
-//        int avgSum = 0;
-//        for (Employee employees : employee) {
-//            if (employees != null) {
-//                avgSum++;
-//            }
-//        }
-//        return salaryCalculate() / avgSum;
-//    }
-//
-//    public float calculateAverageSalary(int departmentId) {
-//        float avgSum = 0;
-//        int count = 0;
-//        for (Employee employees : employee) {
-//            if (employees != null && employees.getDepartmentId() == departmentId) {
-//                avgSum += employees.getEmployeeSalary();
-//                count++;
-//            }
-//        }
-//        return avgSum / count;
-//    }
-//
-//    public void printEmployeeFullName() {
-//        for (Employee employees : employee) {
-//            System.out.println("Ф.И.О сотрудника: " + employees.getEmployeeLastName() + " "
-//                    + employees.getEmployeeFirstName() + " " + employees.getEmployeeMiddleName());
-//
-//        }
-//    }
-//
-//    public float salaryIndexIncrease(float index) {
-//        for (Employee employees : employee) {
-//            if (employees != null) {
-//                employees.setEmployeeSalary(employees.getEmployeeSalary()
-//                        + (employees.getEmployeeSalary() / 100 * index));
-//            }
-//        }
-//        return index;
-//    }
-//
-//    public float salaryIndexIncrease(float index, int departmentId) {
-//        for (Employee employees : employee) {
-//            if (employees != null && employees.getDepartmentId() == departmentId) {
-//                employees.setEmployeeSalary(employees.getEmployeeSalary()
-//                        + (employees.getEmployeeSalary() / 100 * index));
-//            }
-//        }
-//        return index;
-//    }
-//
-//    public void findLessLimitCurrentSalary(float limitSalary) {
-//        System.out.println("Ниже установленного порога:");
-//        for (Employee employees : employee) {
-//            if (employees != null && employees.getEmployeeSalary() < limitSalary) {
-//                System.out.println("ID: " + employees.getId() + " | ФИО: " + employees.getEmployeeLastName()
-//                        + " " + employees.getEmployeeFirstName() + " "
-//                        + employees.getEmployeeMiddleName() + " | Зарплата: " + employees.getEmployeeSalary());
-//            }
-//        }
-//    }
-//
-//    public void findMoreLimitCurrentSalary(float limitSalary) {
-//        System.out.println("Выше установленного порога:");
-//        for (Employee employees : employee) {
-//            if (employees != null && employees.getEmployeeSalary() >= limitSalary) {
-//                System.out.println("ID: " + employees.getId() + " | ФИО: " + employees.getEmployeeLastName()
-//                        + " " + employees.getEmployeeFirstName() + " "
-//                        + employees.getEmployeeMiddleName() + " | Зарплата: " + employees.getEmployeeSalary());
-//            }
-//        }
-//    }
+
+    public Employee calculateMinSalary(int departmentId) {
+        var staff = new ArrayList<>(employees.values());
+        staff.removeIf(emp -> emp.getDepartmentId() != departmentId);
+        return Collections.min(staff, Comparator.comparingDouble(Employee::getEmployeeSalary));
+    }
+
+    public float calculateAverageSalary() {
+        return salaryCalculate() / employees.size();
+    }
+
+    public float calculateAverageSalary(int departmentId) {
+        float avgSum = 0;
+        int count = 0;
+        for (var emp : employees.values()) {
+            if (emp.getDepartmentId() == departmentId) {
+                avgSum += emp.getEmployeeSalary();
+                count++;
+            }
+        }
+        return avgSum / count;
+    }
+
+    public void printEmployeeFullName() {
+        for (var emp : employees.values()) {
+            System.out.println("Ф.И.О сотрудника: " + emp.getFullName());
+
+        }
+    }
+
+    public float salaryIndexIncrease(float index) {
+        for (var emp : employees.values()) {
+            emp.setEmployeeSalary(emp.getEmployeeSalary()
+                    + (emp.getEmployeeSalary() / 100 * index));
+        }
+        return index;
+    }
+
+    public float salaryIndexIncrease(float index, int departmentId) {
+        for (var emp : employees.values()) {
+            if (emp.getDepartmentId() == departmentId) {
+                emp.setEmployeeSalary(emp.getEmployeeSalary()
+                        + (emp.getEmployeeSalary() / 100 * index));
+            }
+        }
+        return index;
+    }
+
+    public void findLessLimitCurrentSalary(float limitSalary) {
+        System.out.println("Ниже установленного порога:");
+        for (var emp : employees.values()) {
+            if (emp.getEmployeeSalary() < limitSalary) {
+                System.out.println("ID: " + emp.getId() + " | ФИО: " + emp.getEmployeeLastName()
+                        + " " + emp.getEmployeeFirstName() + " "
+                        + emp.getEmployeeMiddleName() + " | Зарплата: " + emp.getEmployeeSalary());
+            }
+        }
+    }
+
+    public void findMoreLimitCurrentSalary(float limitSalary) {
+        System.out.println("Выше установленного порога:");
+        for (var emp : employees.values()) {
+            if (emp.getEmployeeSalary() >= limitSalary) {
+                System.out.println("ID: " + emp.getId() + " | ФИО: " + emp.getEmployeeLastName()
+                        + " " + emp.getEmployeeFirstName() + " "
+                        + emp.getEmployeeMiddleName() + " | Зарплата: " + emp.getEmployeeSalary());
+            }
+        }
+    }
 }
